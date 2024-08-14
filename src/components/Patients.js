@@ -17,27 +17,57 @@ import Button from "react-bootstrap/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import EditIcon from '@mui/icons-material/Edit';
 
 const columns = [
     {
-      field: "name",
-      headerName: "Nome",
+      field: "paciente",
+      headerName: "Paciente",
       width: 250,
-      editable: true,
+      editable: false,
     },
     {
-      field: "kindCourseDescription",
-      headerName: "Tipo de curso",
+      field: "qtd_avaliacao",
+      headerName: "Avaliação",
       width: 250,
-      editable: true,
+      editable: false,
     },
+    // {
+    //   field: "acao",
+    //   headerName: "Ação",
+    //   width: 250,
+    //   editable: false,
+    // },
   ];
 
   const courses = [{
     "id": 1,
-    "name": "aaa",
-    "kindCourseDescription": "rerer"
-  }];
+    "paciente": "xxx-xxx",
+    "qtd_avaliacao": "0",
+  },
+  {
+    "id": 2,
+    "paciente": "xxx-xxx",
+    "qtd_avaliacao": "1",
+  },
+  {
+    "id": 3,
+    "paciente": "xxx-xxx",
+    "qtd_avaliacao": "2",
+  },
+  {
+    "id": 4,
+    "paciente": "xxx-xxx",
+    "qtd_avaliacao": "3",
+  },
+  {
+    "id": 5,
+    "paciente": "xxx-xxx",
+    "qtd_avaliacao": "4",
+  },
+
+
+];
 
   
 export default function Patients() {
@@ -59,7 +89,7 @@ export default function Patients() {
       };
 
   return (
-    <div class="container">
+    <div className="container">
     <div className="back-button">
         <Link to="/">
             <Button variant="success" className="button-success">
@@ -82,17 +112,27 @@ export default function Patients() {
         />
       </Box>
 
+      <div className="d-flex justify-content-end mt-5">
+        <div className="row ">
+          <div className="col-md-3 ml-md-auto">
+          <Link to="/details">
+            <Button variant="success" className="button-success">
+             <EditIcon />
+            </Button>
+            </Link>
+          </div>
+          </div>
+        </div>
 
 
-
-    
+{/*     
       Patients heheh
       <Link to="/details">
         <Button variant="success" className="button-success">
           {" "}
           <SearchIcon />
         </Button>{" "}
-        </Link>
+        </Link> */}
 
       
     </div>
