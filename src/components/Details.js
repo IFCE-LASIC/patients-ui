@@ -249,6 +249,8 @@ export default function Details() {
               name="pessoa_eh_relevante"
               value={objectSave.pessoa_eh_relevante}
               onChange={handleChangeCheckBox}
+
+              checked={objectSave.pessoa_eh_relevante}
             />{" "}
             &nbsp;
             <label htmlFor="pessoa_eh_relevante">Pessoal relev.</label>
@@ -288,6 +290,7 @@ export default function Details() {
               id="idade_eh_relevante"
               name="idade_eh_relevante"
               value={objectSave.idade_eh_relevante}
+              checked={objectSave.idade_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -353,6 +356,7 @@ export default function Details() {
               id="data_eh_relevante"
               name="data_eh_relevante"
               value={objectSave.data_eh_relevante}
+              checked={objectSave.data_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -379,6 +383,7 @@ export default function Details() {
               id="exame_eh_relevante"
               name="exame_eh_relevante"
               value={objectSave.exame_eh_relevante}
+              checked={objectSave.exame_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -431,6 +436,7 @@ export default function Details() {
               id="valor_obtido_em_exame_eh_relevante"
               name="valor_obtido_em_exame_eh_relevante"
               value={objectSave.exame_eh_relevante}
+              checked={objectSave.exame_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -474,6 +480,7 @@ export default function Details() {
               id="numero_de_gravidezes_eh_relevante"
               name="numero_de_gravidezes_eh_relevante"
               value={objectSave.numero_de_gravidezes_eh_relevante}
+              checked={objectSave.numero_de_gravidezes_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -515,6 +522,7 @@ export default function Details() {
               id="numero_de_partos_eh_relevante"
               name="numero_de_partos_eh_relevante"
               value={objectSave.numero_de_partos_eh_relevante}
+              checked={objectSave.numero_de_partos_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -543,6 +551,7 @@ export default function Details() {
               id="numero_de_abortos_eh_relevante"
               name="numero_de_abortos_eh_relevante"
               value={objectSave.numero_de_abortos_eh_relevante}
+              checked={objectSave.numero_de_abortos_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -573,6 +582,7 @@ export default function Details() {
               id="fumante"
               name="fumante"
               value={objectSave.fumante}
+              checked={objectSave.fumante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -584,6 +594,7 @@ export default function Details() {
               id="fumante_eh_relevante"
               name="fumante_eh_relevante"
               value={objectSave.fumante_eh_relevante}
+              checked={objectSave.fumante_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -632,6 +643,7 @@ export default function Details() {
               id="cigarros_por_dia_eh_relevante"
               name="cigarros_por_dia_eh_relevante"
               value={objectSave.cigarros_por_dia_eh_relevante}
+              checked={objectSave.cigarros_por_dia_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -675,6 +687,7 @@ export default function Details() {
               id="anos_de_fumante_eh_relevante"
               name="anos_de_fumante_eh_relevante"
               value={objectSave.anos_de_fumante_eh_relevante}
+              checked={objectSave.anos_de_fumante_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -715,6 +728,7 @@ export default function Details() {
               id="condicao_medica_eh_relevante"
               name="condicao_medica_eh_relevante"
               value={objectSave.condicao_medica_eh_relevante}
+              checked={objectSave.condicao_medica_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -733,6 +747,7 @@ export default function Details() {
               id="hepatiteB"
               name="hepatiteB"
               value={objectSave.hepatiteB}
+              checked={objectSave.hepatiteB}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -744,6 +759,7 @@ export default function Details() {
               id="relevant_hepatiteB"
               name="relevant_hepatiteB"
               value={objectSave.relevant_hepatiteB}
+              checked={objectSave.relevant_hepatiteB}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -767,6 +783,7 @@ export default function Details() {
               id="caxumba"
               name="caxumba"
               value={objectSave.caxumba}
+              checked={objectSave.caxumba}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -778,6 +795,7 @@ export default function Details() {
               id="caxumba_eh_relevante"
               name="caxumba_eh_relevante"
               value={objectSave.caxumba_eh_relevante}
+              checked={objectSave.caxumba_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -801,6 +819,7 @@ export default function Details() {
               id="sarampo"
               name="sarampo"
               value={objectSave.sarampo}
+              checked={objectSave.sarampo}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -812,7 +831,9 @@ export default function Details() {
               id="sarampo_eh_relevante"
               name="sarampo_eh_relevante"
               value={objectSave.sarampo_eh_relevante}
+              checked={objectSave.sarampo_eh_relevante}
               onChange={handleChangeCheckBox}
+              
             />{" "}
             &nbsp;
             <label htmlFor="hepatite">Relevante?</label>
@@ -838,6 +859,7 @@ export default function Details() {
               id="hepatite_A"
               name="hepatite_A"
               value={objectSave.hepatite_A}
+              checked={objectSave.hepatite_A}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -850,6 +872,7 @@ export default function Details() {
               name="relevant_hepatiteB"
               value={objectSave.hepatite_A_eh_relevante}
               onChange={handleChangeCheckBox}
+              checked={objectSave.hepatite_A_eh_relevante}
             />{" "}
             &nbsp;
             <label htmlFor="hepatite">Relevante?</label>
@@ -872,6 +895,7 @@ export default function Details() {
               id="tuberculose"
               name="tuberculose"
               value={objectSave.tuberculose}
+              checked={objectSave.tuberculose}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -883,6 +907,7 @@ export default function Details() {
               id="tuberculose_eh_relevante"
               name="tuberculose_eh_relevante"
               value={objectSave.tuberculose_eh_relevante}
+              checked={objectSave.tuberculose_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -906,6 +931,7 @@ export default function Details() {
               id="herpes_zoster"
               name="herpes_zoster"
               value={objectSave.herpes_zoster}
+              checked={objectSave.herpes_zoster}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -917,6 +943,7 @@ export default function Details() {
               id="herpes_zoster_eh_relevante"
               name="herpes_zoster_eh_relevante"
               value={objectSave.herpes_zoster_eh_relevante}
+              checked={objectSave.herpes_zoster_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -943,6 +970,7 @@ export default function Details() {
               id="varicela"
               name="varicela"
               value={objectSave.varicela}
+              checked={objectSave.varicela}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -954,6 +982,7 @@ export default function Details() {
               id="varicela_eh_relevante"
               name="varicela_eh_relevante"
               value={objectSave.varicela_eh_relevante}
+              checked={objectSave.varicela_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -977,6 +1006,7 @@ export default function Details() {
               id="rubeola"
               name="rubeola"
               value={objectSave.rubeola}
+              checked={objectSave.rubeola}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -988,6 +1018,7 @@ export default function Details() {
               id="rubeola_eh_relevante"
               name="rubeola_eh_relevante"
               value={objectSave.rubeola_eh_relevante}
+              checked={objectSave.rubeola_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1011,6 +1042,7 @@ export default function Details() {
               id="covid_19"
               name="covid_19"
               value={objectSave.covid_19}
+              checked={objectSave.covid_19}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1022,6 +1054,7 @@ export default function Details() {
               id="covid_19_eh_relevante"
               name="covid_19_eh_relevante"
               value={objectSave.covid_19_eh_relevante}
+              checked={objectSave.covid_19_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1048,6 +1081,7 @@ export default function Details() {
               id="historico_de_cirurgias"
               name="historico_de_cirurgias"
               value={objectSave.historico_de_cirurgias}
+              checked={objectSave.historico_de_cirurgias}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1059,6 +1093,7 @@ export default function Details() {
               id="historico_de_cirurgias_eh_relevante"
               name="historico_de_cirurgias_eh_relevante"
               value={objectSave.historico_de_cirurgias_eh_relevante}
+              checked={objectSave.historico_de_cirurgias_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1082,6 +1117,7 @@ export default function Details() {
               id="historico_de_alergias"
               name="historico_de_alergias"
               value={objectSave.historico_de_alergias}
+              checked={objectSave.historico_de_alergias}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1093,6 +1129,7 @@ export default function Details() {
               id="historico_de_alergias_eh_relevante"
               name="historico_de_alergias_eh_relevante"
               value={objectSave.historico_de_alergias_eh_relevante}
+              checked={objectSave.historico_de_alergias_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1116,6 +1153,7 @@ export default function Details() {
               id="problema_de_audicao"
               name="problema_de_audicao"
               value={objectSave.problema_de_audicao}
+              checked={objectSave.problema_de_audicao}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1127,6 +1165,7 @@ export default function Details() {
               id="problema_de_audicao_eh_relevante"
               name="problema_de_audicao_eh_relevante"
               value={objectSave.problema_de_audicao_eh_relevante}
+              checked={objectSave.problema_de_audicao_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1153,6 +1192,7 @@ export default function Details() {
               id="utiliza_medicacao_com_frequencia"
               name="utiliza_medicacao_com_frequencia"
               value={objectSave.utiliza_medicacao_com_frequencia}
+              checked={objectSave.utiliza_medicacao_com_frequencia}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1164,6 +1204,7 @@ export default function Details() {
               id="utiliza_medicacao_com_frequencia_eh_relevante"
               name="utiliza_medicacao_com_frequencia_eh_relevante"
               value={objectSave.utiliza_medicacao_com_frequencia_eh_relevante}
+              checked={objectSave.utiliza_medicacao_com_frequencia_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1187,6 +1228,7 @@ export default function Details() {
               id="historico_de_gravidez"
               name="historico_de_gravidez"
               value={objectSave.historico_de_gravidez}
+              checked={objectSave.historico_de_gravidez}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1198,6 +1240,7 @@ export default function Details() {
               id="historico_de_gravidez_eh_relevante"
               name="historico_de_gravidez_eh_relevante"
               value={objectSave.historico_de_gravidez_eh_relevante}
+              checked={objectSave.historico_de_gravidez_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1221,6 +1264,7 @@ export default function Details() {
               id="pratica_exercicios_fisicos"
               name="pratica_exercicios_fisicos"
               value={objectSave.pratica_exercicios_fisicos}
+              checked={objectSave.pratica_exercicios_fisicos}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1232,6 +1276,7 @@ export default function Details() {
               id="pratica_exercicios_fisicos_eh_relevante"
               name="pratica_exercicios_fisicos_eh_relevante"
               value={objectSave.pratica_exercicios_fisicos_eh_relevante}
+              checked={objectSave.pratica_exercicios_fisicos_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1258,6 +1303,7 @@ export default function Details() {
               id="historico_familiar_de_cancer"
               name="historico_familiar_de_cancer"
               value={objectSave.historico_familiar_de_cancer}
+              checked={objectSave.historico_familiar_de_cancer}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1269,6 +1315,7 @@ export default function Details() {
               id="historico_familiar_de_cancer_eh_relevante"
               name="historico_familiar_de_cancer_eh_relevante"
               value={objectSave.historico_familiar_de_cancer_eh_relevante}
+              checked={objectSave.historico_familiar_de_cancer_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1292,6 +1339,7 @@ export default function Details() {
               id="historico_familiar_de_hipertensao"
               name="historico_familiar_de_hipertensao"
               value={objectSave.historico_familiar_de_hipertensao}
+              checked={objectSave.historico_familiar_de_hipertensao}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1303,6 +1351,7 @@ export default function Details() {
               id="historico_familiar_de_hipertensao_eh_relevante"
               name="historico_familiar_de_hipertensao_eh_relevante"
               value={objectSave.historico_familiar_de_hipertensao_eh_relevante}
+              checked={objectSave.historico_familiar_de_hipertensao_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1326,6 +1375,7 @@ export default function Details() {
               id="historico_familiar_de_diabetes"
               name="historico_familiar_de_diabetes"
               value={objectSave.historico_familiar_de_diabetes}
+              checked={objectSave.historico_familiar_de_diabetes}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1337,6 +1387,7 @@ export default function Details() {
               id="historico_familiar_de_diabetes_eh_relevante"
               name="historico_familiar_de_diabetes_eh_relevante"
               value={objectSave.historico_familiar_de_diabetes_eh_relevante}
+              checked={objectSave.historico_familiar_de_diabetes_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1375,6 +1426,7 @@ export default function Details() {
               id="consumo_de_alcool_eh_relevante"
               name="consumo_de_alcool_eh_relevante"
               value={objectSave.consumo_de_alcool_eh_relevante}
+              checked={objectSave.consumo_de_alcool_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1398,6 +1450,7 @@ export default function Details() {
               id="historico_familiar_de_infarto"
               name="historico_familiar_de_infarto"
               value={objectSave.historico_familiar_de_infarto}
+              checked={objectSave.historico_familiar_de_infarto}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1409,6 +1462,7 @@ export default function Details() {
               id="historico_familiar_de_infarto_eh_relevante"
               name="historico_familiar_de_infarto_eh_relevante"
               value={objectSave.historico_familiar_de_infarto_eh_relevante}
+              checked={objectSave.historico_familiar_de_infarto_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1432,6 +1486,7 @@ export default function Details() {
               id="historico_familiar_de_doencas_neurologicas"
               name="historico_familiar_de_doencas_neurologicas"
               value={objectSave.historico_familiar_de_doencas_neurologicas}
+              checked={objectSave.historico_familiar_de_doencas_neurologicas}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1446,6 +1501,7 @@ export default function Details() {
                 objectSave.historico_familiar_de_doencas_neurologicas_eh_relevante
               }
               onChange={handleChangeCheckBox}
+              checked={objectSave.historico_familiar_de_doencas_neurologicas_eh_relevante}
             />{" "}
             &nbsp;
             <label htmlFor="hepatite">Relevante?</label>
@@ -1473,6 +1529,7 @@ export default function Details() {
               value={
                 objectSave.historico_familiar_de_infarto_agudo_do_miocardio
               }
+              checked={objectSave.historico_familiar_de_infarto_agudo_do_miocardio}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1486,6 +1543,7 @@ export default function Details() {
               value={
                 objectSave.historico_familiar_de_infarto_agudo_do_miocardio_eh_relevante
               }
+              checked={objectSave.historico_familiar_de_infarto_agudo_do_miocardio_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1512,6 +1570,7 @@ export default function Details() {
               name="historico_familiar_de_outras_doencas"
               value={objectSave.historico_familiar_de_infarto}
               onChange={handleChangeCheckBox}
+              checked={objectSave.historico_familiar_de_infarto}
             />{" "}
             &nbsp;
             <label htmlFor="historico_familiar_de_outras_doencas">
@@ -1526,6 +1585,7 @@ export default function Details() {
               value={
                 objectSave.historico_familiar_de_outras_doencas_eh_relevante
               }
+              checked={ objectSave.historico_familiar_de_outras_doencas_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1550,6 +1610,7 @@ export default function Details() {
               name="historico_familiar_de_doencas_neurologicas"
               value={objectSave.historico_familiar_de_doencas_neurologicas}
               onChange={handleChangeCheckBox}
+              checked={objectSave.historico_familiar_de_doencas_neurologicas}
             />{" "}
             &nbsp;
             <label htmlFor="hepatite">Hist. Neurol.</label>
@@ -1562,6 +1623,7 @@ export default function Details() {
               value={
                 objectSave.historico_familiar_de_doencas_neurologicas_eh_relevante
               }
+              checked={objectSave.historico_familiar_de_doencas_neurologicas_eh_relevante}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
