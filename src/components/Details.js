@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from "react";
-// import Button from "react-bootstrap/Button";
 import "../App.css";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
-// import Button from "react-bootstrap/Button";
-// import { Link } from "react-router-dom";
-// import SchoolIcon from "@mui/icons-material/School";
-// import * as routes from "../constants/routes";
-// import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-// import MenuBookIcon from "@mui/icons-material/MenuBook";
-// import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
-// import PersonIcon from "@mui/icons-material/Person";
-// import GroupsIcon from "@mui/icons-material/Groups";
-// import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
-import CheckIcon from '@mui/icons-material/Check';
+import CheckIcon from "@mui/icons-material/Check";
 
 export default function Details() {
   const { crm } = useParams();
@@ -135,38 +124,32 @@ export default function Details() {
     historico_familiar_de_outras_doencas_obs: "",
     historico_familiar_de_outras_doencas_eh_relevante: "",
   });
-  
+
   let execution = 0;
-  
+
   useEffect(() => {
-  if(execution === 0){
-    let config = {
-      headers: {
-        "XCARDIO-API-KEY": "658f2bb5-101a-47b0-b0d7-0e5d23212da1",
-      },
-    };
+    if (execution === 0) {
+      let config = {
+        headers: {
+          "XCARDIO-API-KEY": "658f2bb5-101a-47b0-b0d7-0e5d23212da1",
+        },
+      };
 
-    axios
-      .get("http://54.233.219.82/get_complete_unique_sample/", config)
-      .then((response) => {
-        console.log(response.data)
-        setIdEntity(response.data._id)
-        setObjectSave(response.data);
-      });
+      axios
+        .get("http://54.233.219.82/get_complete_unique_sample/", config)
+        .then((response) => {
+          setIdEntity(response.data._id);
+          setObjectSave(response.data);
+        });
 
-    execution = 1;
-  }
-  
+      execution = 1;
+    }
   }, []);
 
   const handleChange = (e) =>
     setObjectSave({ ...objectSave, [e.target.name]: e.target.value });
   const handleChangeCheckBox = (e) => {
-    console.log(e);
     setObjectSave({ ...objectSave, [e.target.name]: e.target.checked });
-  };
-  const show = () => {
-    console.log(objectSave);
   };
 
   const saveObject = () => {
@@ -179,13 +162,11 @@ export default function Details() {
     let objectToSave = objectSave;
     objectToSave.id = idEntity;
     objectToSave.crm = crm;
-    console.log(objectToSave)
+
     axios
       .post("http://54.233.219.82/save_labeled_samples/", objectToSave, config)
-      .then((response) => {
-        console.log(response, response.data)
-      });
-  }
+      .then((response) => {});
+  };
   return (
     <div className="container">
       <div className="back-button">
@@ -202,7 +183,7 @@ export default function Details() {
         </Link>
       </div>
 
-      <div className="two">
+      <div className="save-position">
         <Button
           variant="success"
           className="button-success"
@@ -214,7 +195,7 @@ export default function Details() {
         </Button>{" "}
       </div>
       <h3> Pessoa - {objectSave.pessoa} </h3>
-      <form onSubmit={(e) => console.log(e)}>
+      <form>
         <div className=" row form " style={{ paddingTop: "1.5vh" }}>
           <div className="col-md-2">
             <label>Obs. geral</label>
@@ -249,7 +230,6 @@ export default function Details() {
               name="pessoa_eh_relevante"
               value={objectSave.pessoa_eh_relevante}
               onChange={handleChangeCheckBox}
-
               checked={objectSave.pessoa_eh_relevante}
             />{" "}
             &nbsp;
@@ -833,7 +813,6 @@ export default function Details() {
               value={objectSave.sarampo_eh_relevante}
               checked={objectSave.sarampo_eh_relevante}
               onChange={handleChangeCheckBox}
-              
             />{" "}
             &nbsp;
             <label htmlFor="hepatite">Relevante?</label>
@@ -1351,7 +1330,9 @@ export default function Details() {
               id="historico_familiar_de_hipertensao_eh_relevante"
               name="historico_familiar_de_hipertensao_eh_relevante"
               value={objectSave.historico_familiar_de_hipertensao_eh_relevante}
-              checked={objectSave.historico_familiar_de_hipertensao_eh_relevante}
+              checked={
+                objectSave.historico_familiar_de_hipertensao_eh_relevante
+              }
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1501,7 +1482,9 @@ export default function Details() {
                 objectSave.historico_familiar_de_doencas_neurologicas_eh_relevante
               }
               onChange={handleChangeCheckBox}
-              checked={objectSave.historico_familiar_de_doencas_neurologicas_eh_relevante}
+              checked={
+                objectSave.historico_familiar_de_doencas_neurologicas_eh_relevante
+              }
             />{" "}
             &nbsp;
             <label htmlFor="hepatite">Relevante?</label>
@@ -1529,7 +1512,9 @@ export default function Details() {
               value={
                 objectSave.historico_familiar_de_infarto_agudo_do_miocardio
               }
-              checked={objectSave.historico_familiar_de_infarto_agudo_do_miocardio}
+              checked={
+                objectSave.historico_familiar_de_infarto_agudo_do_miocardio
+              }
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1543,7 +1528,9 @@ export default function Details() {
               value={
                 objectSave.historico_familiar_de_infarto_agudo_do_miocardio_eh_relevante
               }
-              checked={objectSave.historico_familiar_de_infarto_agudo_do_miocardio_eh_relevante}
+              checked={
+                objectSave.historico_familiar_de_infarto_agudo_do_miocardio_eh_relevante
+              }
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1585,7 +1572,9 @@ export default function Details() {
               value={
                 objectSave.historico_familiar_de_outras_doencas_eh_relevante
               }
-              checked={ objectSave.historico_familiar_de_outras_doencas_eh_relevante}
+              checked={
+                objectSave.historico_familiar_de_outras_doencas_eh_relevante
+              }
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
@@ -1623,7 +1612,9 @@ export default function Details() {
               value={
                 objectSave.historico_familiar_de_doencas_neurologicas_eh_relevante
               }
-              checked={objectSave.historico_familiar_de_doencas_neurologicas_eh_relevante}
+              checked={
+                objectSave.historico_familiar_de_doencas_neurologicas_eh_relevante
+              }
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
