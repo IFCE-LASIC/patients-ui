@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import Button from "react-bootstrap/Button";
 import "../App.css";
 import Button from "react-bootstrap/Button";
@@ -15,8 +15,21 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 
 export default function Home() {
+  const [crm, setCrm] =  useState("");
+  let url = '/patients/'
+
+  const onInputChange = (e) => {
+    setCrm(e.target.value)
+    url.concat(crm);
+    console.log(crm)
+  };
+
+  useEffect(() => {
+    // loadStudents();
+  }, []);
+
   return (
-    <div class="container container-box">
+    <div className="container container-box">
       <form onSubmit={(e) => console.log(e)}>
         <div className="row form mt-5 box">
           <label htmlFor="name" className="required crm">
@@ -25,14 +38,14 @@ export default function Home() {
           <input
             type="text"
             className="form-control"
-            id="name"
+            id="crm"
             required
-            name="name"
-            //   value={name || ""}
-            //   onChange={(e) => onInputChange(e)}
+            name="crm"
+            value={crm || ""}
+            onChange={(e) => onInputChange(e)}
           />
         </div>
-        <Link to="/patients">
+        <Link to={{ pathname: `/patients/${crm}`}}>
         <Button type="submit" variant="success" className="button-success">
           {" "}
           <SearchIcon />

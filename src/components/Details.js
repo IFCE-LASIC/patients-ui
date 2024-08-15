@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 // import Button from "react-bootstrap/Button";
 import "../App.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 // import Button from "react-bootstrap/Button";
 // import { Link } from "react-router-dom";
@@ -17,10 +17,20 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from "axios";
 
 export default function Details() {
-  
+  const { id } = useParams();
+
   useEffect(() => {
-    const result = axios.get("http://18.231.116.238/get_ids_samples/?id=2277aa40-8c7d-42d4-8279-7666606c0825");
-    console.log(result.data)
+    let config = {
+      headers: {
+        'XCARDIO-API-KEY': '658f2bb5-101a-47b0-b0d7-0e5d23212da1'
+      }
+    }
+  
+
+
+    
+    const result = axios.get("http://18.231.254.56/get_all_samples/", config).then(response => console.log(response))
+    console.log(result, result.data, id)
   }, []);
   
   return (

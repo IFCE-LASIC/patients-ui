@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import Button from "react-bootstrap/Button";
 import "../App.css";
-import { Link } from "react-router-dom";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Link, useParams } from "react-router-dom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Button from "react-bootstrap/Button";
 // import { Link } from "react-router-dom";
 // import SchoolIcon from "@mui/icons-material/School";
@@ -14,95 +14,129 @@ import Button from "react-bootstrap/Button";
 // import GroupsIcon from "@mui/icons-material/Groups";
 // import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
 // import SearchIcon from "@mui/icons-material/Search";
-import SearchIcon from "@mui/icons-material/Search";
+//import SearchIcon from "@mui/icons-material/Search";
 import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
+import axios from "axios";
+import Patient from "../models/Patient";
+
 
 const columns = [
-    {
-      field: "paciente",
-      headerName: "Paciente",
-      width: 250,
-      editable: false,
-    },
-    {
-      field: "qtd_avaliacao",
-      headerName: "Avaliação",
-      width: 250,
-      editable: false,
-    },
-    // {
-    //   field: "acao",
-    //   headerName: "Ação",
-    //   width: 250,
-    //   editable: false,
-    // },
-  ];
-
-  const courses = [{
-    "id": 1,
-    "paciente": "xxx-xxx",
-    "qtd_avaliacao": "0",
+  {
+    field: "id",
+    headerName: "#",
+    width: 500,
+    editable: false,
   },
   {
-    "id": 2,
-    "paciente": "xxx-xxx",
-    "qtd_avaliacao": "1",
+    field: "qtd_rotulacao",
+    headerName: "Qtd rotulação",
+    width: 250,
+    editable: false,
   },
   {
-    "id": 3,
-    "paciente": "xxx-xxx",
-    "qtd_avaliacao": "2",
+    field: "status_crm",
+    headerName: "Status CRM",
+    width: 250,
+    editable: false,
   },
-  {
-    "id": 4,
-    "paciente": "xxx-xxx",
-    "qtd_avaliacao": "3",
-  },
-  {
-    "id": 5,
-    "paciente": "xxx-xxx",
-    "qtd_avaliacao": "4",
-  },
-
-
 ];
 
-  
+
+// let patientsTable = []
+
+
 export default function Patients() {
-    const onRowsSelectionHandler = (ids) => {
-        console.log(ids);
-        // const selectedRowsData = ids.map((id) =>
-        //   courses.find((row) => row.id === id)
-        // );
-        // console.log(selectedRowsData)
-        // if (selectedRowsData.length > 0) {
+  const { crm } = useParams();
+  const [patientsTable, setPatientsTable] = useState([]);
+  const [idSelected, setSelectedId] = useState([]);
+
+  let teste = 0;
+  useEffect(() => {
+    if(teste == 0){
+      loadPatients();
+      teste = 1;
+    }
     
-        //   setSelectedCourse(selectedRowsData[0]);
-        //   setDisable(false);
-        // } else {
-        //   setSelectedCourse({});
-        //   clear();
-        //   setDisable(true);
-        // }
-      };
+  }, []);
+
+  const loadPatients = () => {
+    let config = {
+      headers: {
+        "XCARDIO-API-KEY": "658f2bb5-101a-47b0-b0d7-0e5d23212da1",
+      },
+    };
+
+     axios
+      .get(`http://18.231.254.56/get_all_samples/?crm=${crm}`, config)
+      .then((response) => {
+        let patients = response.data;
+        let objects = [];
+        // let object = new Patient();
+
+            // setArtists([...artists , object])
+        console.log(patientsTable)
+        for(let i = 0; i < patients.id.length; i++){
+          let object = new Patient();  
+          object.id = patients.id[i];
+          object.qtd_rotulacao = patients.qtd_rotulacao[i];
+          object.status_crm = patients.status_crm[i]
+          objects.push(object)
+          console.log(object)
+        }
+
+        setPatientsTable(objects)
+        console.log(objects)
+        console.log(`id: ${patients.id[0]} \nqtd_rotulacao: ${patients.qtd_rotulacao[0]}\nstatus_crm: ${patients.status_crm[0]}`);
+        console.log(`id: ${patients.id[1]} \nqtd_rotulacao: ${patients.qtd_rotulacao[1]}\nstatus_crm: ${patients.status_crm[1]}`);
+
+      });
+
+    // 
+
+   
+
+    // result.data.data.array.forEach(element => {
+    //   console.log(patients.id[])
+    // });
+
+
+  };
+
+  console.log(crm);
+  const onRowsSelectionHandler = (ids) => {
+    setSelectedId(ids[0])
+    // const selectedRowsData = ids.map((id) =>
+    //   courses.find((row) => row.id === id)
+    // );
+    // console.log(selectedRowsData)
+    // if (selectedRowsData.length > 0) {
+
+    //   setSelectedCourse(selectedRowsData[0]);
+    //   setDisable(false);
+    // } else {
+    //   setSelectedCourse({});
+    //   clear();
+    //   setDisable(true);
+    // }
+  };
 
   return (
     <div className="container">
-    <div className="back-button">
+      <div className="back-button">
         <Link to="/">
-            <Button variant="success" className="button-success">
+          <Button variant="success" className="button-success">
             {" "}
             <ArrowBackIcon />
-            </Button>{" "}
-        </Link>        
-    </div>
+          </Button>{" "}
+        </Link>
+      </div>
 
-    <Box sx={{ height: 550, width: "100%" }} className="tes">
-        <h3>Pacientes</h3>
+      <Box sx={{ height: 550, width: "100%" }} className="tes">
+        <h3>Pacientes (CRM - {crm})</h3>
         <DataGrid
-          rows={courses}
+          rows={patientsTable}
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[10]}
@@ -115,17 +149,16 @@ export default function Patients() {
       <div className="d-flex justify-content-end mt-5">
         <div className="row ">
           <div className="col-md-3 ml-md-auto">
-          <Link to="/details">
-            <Button variant="success" className="button-success">
-             <EditIcon />
-            </Button>
+            <Link to={{ pathname: `/details/${idSelected}`}}>
+              <Button variant="success" className="button-success">
+                <EditIcon />
+              </Button>
             </Link>
           </div>
-          </div>
         </div>
+      </div>
 
-
-{/*     
+      {/*     
       Patients heheh
       <Link to="/details">
         <Button variant="success" className="button-success">
@@ -133,9 +166,6 @@ export default function Patients() {
           <SearchIcon />
         </Button>{" "}
         </Link> */}
-
-      
     </div>
-    
   );
 }
