@@ -20,6 +20,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import Patient from "../models/Patient";
+import ArticleIcon from '@mui/icons-material/Article';
 
 
 const columns = [
@@ -52,11 +53,11 @@ export default function Patients() {
   const [patientsTable, setPatientsTable] = useState([]);
   const [idSelected, setSelectedId] = useState([]);
 
-  let teste = 0;
+  let execution = 0;
   useEffect(() => {
-    if(teste == 0){
+    if(execution === 0){
       loadPatients();
-      teste = 1;
+      execution = 1;
     }
     
   }, []);
@@ -69,7 +70,7 @@ export default function Patients() {
     };
 
      axios
-      .get(`http://18.231.254.56/get_all_samples/?crm=${crm}`, config)
+      .get(`http://54.233.219.82/get_all_samples/?crm=${crm}`, config)
       .then((response) => {
         let patients = response.data;
         let objects = [];
@@ -149,9 +150,9 @@ export default function Patients() {
       <div className="d-flex justify-content-end mt-5">
         <div className="row ">
           <div className="col-md-3 ml-md-auto">
-            <Link to={{ pathname: `/details/${idSelected}`}}>
+            <Link to={{ pathname: `/details/${crm}`}}>
               <Button variant="success" className="button-success">
-                <EditIcon />
+                <ArticleIcon />
               </Button>
             </Link>
           </div>
