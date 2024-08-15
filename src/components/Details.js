@@ -5,6 +5,13 @@ import { Button } from "react-bootstrap";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import CheckIcon from "@mui/icons-material/Check";
+import { HEADER } from "../constants/config";
+import {
+  GET_UNIQUE_SAMPLE,
+  SAVE_LABELED_SAMPLES,
+} from "../constants/endpoints";
+import { showAlertError, showAlertSuccess } from "../layout/Alert";
+import { ERROR, ERROR_MESSAGE, SUCCESS, SUCCESS_MESSAGE } from "../constants/message";
 
 export default function Details() {
   const { crm } = useParams();
@@ -129,18 +136,10 @@ export default function Details() {
 
   useEffect(() => {
     if (execution === 0) {
-      let config = {
-        headers: {
-          "XCARDIO-API-KEY": "658f2bb5-101a-47b0-b0d7-0e5d23212da1",
-        },
-      };
-
-      axios
-        .get("http://54.233.219.82/get_complete_unique_sample/", config)
-        .then((response) => {
-          setIdEntity(response.data._id);
-          setObjectSave(response.data);
-        });
+      axios.get(GET_UNIQUE_SAMPLE, HEADER).then((response) => {
+        setIdEntity(response.data._id);
+        setObjectSave(response.data);
+      });
 
       execution = 1;
     }
@@ -153,19 +152,18 @@ export default function Details() {
   };
 
   const saveObject = () => {
-    let config = {
-      headers: {
-        "XCARDIO-API-KEY": "658f2bb5-101a-47b0-b0d7-0e5d23212da1",
-      },
-    };
-
     let objectToSave = objectSave;
     objectToSave.id = idEntity;
     objectToSave.crm = crm;
 
     axios
-      .post("http://54.233.219.82/save_labeled_samples/", objectToSave, config)
-      .then((response) => {});
+      .post(SAVE_LABELED_SAMPLES, objectToSave, HEADER)
+      .then((response) => {
+        showAlertSuccess(SUCCESS, SUCCESS_MESSAGE);
+      })
+      .catch(function (error) {
+        showAlertError(ERROR, ERROR_MESSAGE);
+      });
   };
   return (
     <div className="container">

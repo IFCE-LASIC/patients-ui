@@ -8,6 +8,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import Patient from "../models/Patient";
 import ArticleIcon from "@mui/icons-material/Article";
+import { HEADER } from "../constants/config";
+import { GET_ALL } from "../constants/endpoints";
 
 const columns = [
   {
@@ -44,28 +46,20 @@ export default function Patients() {
   }, []);
 
   const loadPatients = () => {
-    let config = {
-      headers: {
-        "XCARDIO-API-KEY": "658f2bb5-101a-47b0-b0d7-0e5d23212da1",
-      },
-    };
+    axios.get(`${GET_ALL}?crm=${crm}`, HEADER).then((response) => {
+      let patients = response.data;
+      let objects = [];
 
-    axios
-      .get(`http://54.233.219.82/get_all_samples/?crm=${crm}`, config)
-      .then((response) => {
-        let patients = response.data;
-        let objects = [];
+      for (let i = 0; i < patients.id.length; i++) {
+        let object = new Patient();
+        object.id = patients.id[i];
+        object.qtd_rotulacao = patients.qtd_rotulacao[i];
+        object.status_crm = patients.status_crm[i];
+        objects.push(object);
+      }
 
-        for (let i = 0; i < patients.id.length; i++) {
-          let object = new Patient();
-          object.id = patients.id[i];
-          object.qtd_rotulacao = patients.qtd_rotulacao[i];
-          object.status_crm = patients.status_crm[i];
-          objects.push(object);
-        }
-
-        setPatientsTable(objects);
-      });
+      setPatientsTable(objects);
+    });
   };
 
   const onRowsSelectionHandler = (ids) => {
