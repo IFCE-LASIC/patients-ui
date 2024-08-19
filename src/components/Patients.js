@@ -93,7 +93,7 @@ export default function Patients() {
       <div className="d-flex justify-content-end mt-5">
         <div className="row ">
           <div className="col-md-3 ml-md-auto">
-            <Link to={{ pathname: `/details/${crm}` }}>
+            <Link to={{ pathname: `/details-v2/${crm}` }}>
               <Button variant="success" className="button-success">
                 <ArticleIcon />
               </Button>

@@ -23,7 +23,7 @@ export default function Details() {
     crm: "",
     hepatiteB_obs: "",
     relevant_hepatiteB: false,
-    risc: "",
+    risc: 0,
     observacao_geral: "",
     pessoa: "",
     pessoa_obs: "",
@@ -130,6 +130,7 @@ export default function Details() {
     historico_familiar_de_outras_doencas: "",
     historico_familiar_de_outras_doencas_obs: "",
     historico_familiar_de_outras_doencas_eh_relevante: "",
+    quais_valor_obtido_em_exame_sao_relevantes: "",
   });
 
   let execution = 0;
@@ -137,8 +138,10 @@ export default function Details() {
   useEffect(() => {
     if (execution === 0) {
       axios.get(GET_UNIQUE_SAMPLE, HEADER).then((response) => {
+        response.data.risc = response.data.risc == 1;
         setIdEntity(response.data._id);
         setObjectSave(response.data);
+        
       });
 
       execution = 1;
@@ -150,11 +153,14 @@ export default function Details() {
   const handleChangeCheckBox = (e) => {
     setObjectSave({ ...objectSave, [e.target.name]: e.target.checked });
   };
-
+  // const handleChangeRisc = (e) => {
+  //   setObjectSave({ ...objectSave, [e.target.name]: e.target.checked ? 0 : 1});
+  // };
   const saveObject = () => {
     let objectToSave = objectSave;
     objectToSave.id = idEntity;
     objectToSave.crm = crm;
+    objectSave.risc = objectSave.risc ? 1 : 0;
 
     axios
       .post(SAVE_LABELED_SAMPLES, objectToSave, HEADER)
@@ -165,6 +171,11 @@ export default function Details() {
         showAlertError(ERROR, ERROR_MESSAGE);
       });
   };
+
+  const show = ()=> {
+    objectSave.risc = objectSave.risc ? 1 : 0;
+    console.log(objectSave)
+  }
   return (
     <div className="container">
       <div className="back-button">
@@ -195,6 +206,19 @@ export default function Details() {
       <h3> Pessoa - {objectSave.pessoa} </h3>
       <form>
         <div className=" row form " style={{ paddingTop: "1.5vh" }}>
+        <div className="col-md-1 ">
+            <label>Risco</label>
+            <br />
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="risc"
+              name="risc"
+              value={objectSave.risc}
+              onChange={handleChangeCheckBox}
+              checked={objectSave.risc}
+            />{" "}
+          </div>
           <div className="col-md-2">
             <label>Obs. geral</label>
             <input
@@ -233,19 +257,6 @@ export default function Details() {
             &nbsp;
             <label htmlFor="pessoa_eh_relevante">Pessoal relev.</label>
             <br />
-          </div>
-          <div className="col-md-1 ">
-            <label>Risco</label>
-            <br />
-            <input
-              type="text"
-              className="form-control"
-              id="risc"
-              name="risc"
-              placeholder=" "
-              value={objectSave.risc}
-              onChange={handleChange}
-            />
           </div>
           <div className="col-md-1 ">
             <label>Idade</label>
@@ -411,14 +422,14 @@ export default function Details() {
             <input
               className="form-check-input"
               type="checkbox"
-              id="valor_obtido_em_exame_eh_relevante"
-              name="valor_obtido_em_exame_eh_relevante"
-              value={objectSave.exame_eh_relevante}
-              checked={objectSave.exame_eh_relevante}
+              id="quais_valor_obtido_em_exame_sao_relevantes"
+              name="quais_valor_obtido_em_exame_sao_relevantes"
+              value={objectSave.quais_valor_obtido_em_exame_sao_relevantes}
+              checked={objectSave.quais_valor_obtido_em_exame_sao_relevantes}
               onChange={handleChangeCheckBox}
             />{" "}
             &nbsp;
-            <label htmlFor="valor_obtido_em_exame_eh_relevante">
+            <label htmlFor="quais_valor_obtido_em_exame_sao_relevantes">
               Val. exam relev.
             </label>
             <br />
