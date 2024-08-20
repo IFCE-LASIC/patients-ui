@@ -229,7 +229,7 @@ export default function DetailsV2() {
         <div className="table-details">
           <table className="table table-stripped">
             <thead>
-              <th scope="col">Doença</th>
+              <th scope="col">Atributo</th>
               <th scope="col">Valor</th>
               <th scope="col">Relevante?</th>
               <th scope="col">Observação</th>
@@ -250,6 +250,7 @@ export default function DetailsV2() {
                         onChange={handleChangeCheckBox}
                         defaultValue={object.value}
                         defaultChecked={object.value}
+                        disabled={true}
                       />
                     ) : (
                       <input
