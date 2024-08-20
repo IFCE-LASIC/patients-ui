@@ -1,5 +1,5 @@
 import { SERVER } from "./config";
 
-export const GET_ALL = `${SERVER}/get_all_samples/`;
-export const GET_UNIQUE_SAMPLE = `${SERVER}/get_complete_unique_sample/`;
-export const SAVE_LABELED_SAMPLES = `${SERVER}/save_labeled_samples/`;
+export const GET_ALL = `${SERVER}/verificando_amostras_rotuladas/`;
+export const GET_UNIQUE_SAMPLE = `${SERVER}/lendo_amostra_para_rotulagem/`;
+export const SAVE_LABELED_SAMPLES = `${SERVER}/salvar_amostras_rotuladas/`;

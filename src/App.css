@@ -116,3 +116,24 @@ footer {
   margin-top: 0.55vh;
 }
 
+.table-details {
+  
+  overflow:auto;
+  height:50vh;
+}
+
+.textarea-size {
+  height: 10vh;
+}
+
+.margin-top-title{
+  margin-top: -20px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.width-input {
+width: 10vh;
+}

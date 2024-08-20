@@ -206,8 +206,8 @@ export default function Details() {
       <h3> Pessoa - {objectSave.pessoa} </h3>
       <form>
         <div className=" row form " style={{ paddingTop: "1.5vh" }}>
-        <div className="col-md-1 ">
-            <label>Risco</label>
+        <div className="col-md-2 ">
+            <label>Risco cardiológico</label>
             <br />
             <input
               className="form-check-input"
@@ -239,7 +239,7 @@ export default function Details() {
               id="pessoa_obs"
               name="pessoa_obs"
               placeholder="OBS:"
-              value={objectSave.pessoa_obs}
+              value={objectSave.pessoa}
               onChange={handleChange}
             />
           </div>

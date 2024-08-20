@@ -5,6 +5,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link, useLocation, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckIcon from "@mui/icons-material/Check";
+import { GET_UNIQUE_SAMPLE, SAVE_LABELED_SAMPLES } from "../constants/endpoints";
+import { HEADER } from "../constants/config";
+import axios from "axios";
+import { ERROR, ERROR_MESSAGE, SUCCESS, SUCCESS_MESSAGE } from "../constants/message";
+import { showAlertError, showAlertSuccess } from "../layout/Alert";
+import SaveIcon from '@mui/icons-material/Save';
 
 const dados = {
   // Dados gerais
@@ -13,35 +19,38 @@ const dados = {
   data: "2024-01-11",
   obs_geral: null,
   pessoa: "2cf63843-f8aa-4209-bfc0-c48f1b2e362e",
-
+  idade: 20,
+  sexo: "MASCULINO",
   //Variáveis a serem avaliadas pelo médico
   features: [
     {
       feature: "hepatiteB",
       label: "Hepatite B",
       value: false,
-      relevant: null,
-      obs: null,
+      hepatiteB_eh_relevante: false,
+      hepatiteB_obs: null,
     },
     {
       feature: "tuberculose",
       label: "Tuberculose",
       value: true,
-      relevant: null,
+      tuberculose_eh_relevante: false,
       obs: null,
     },
   ],
 };
+
 export default function DetailsV2() {
   const { crm } = useParams();
   const location = useLocation();
+  const [idEntity, setIdEntity] = useState();
   const [objectSave, setObjectSave] = useState({
     id: "",
     hepatiteB: false,
     crm: "",
     hepatiteB_obs: "",
     relevant_hepatiteB: false,
-    risc: 0,
+    risco: 0,
     observacao_geral: "",
     pessoa: "",
     pessoa_obs: "",
@@ -150,7 +159,49 @@ export default function DetailsV2() {
     historico_familiar_de_outras_doencas_eh_relevante: "",
     quais_valor_obtido_em_exame_sao_relevantes: "",
   });
-  useEffect(() => {}, []);
+  let execution = 0;
+  const [valor, setValor] = useState("");
+  useEffect(() => {
+    if (execution === 0) {
+        axios.get(GET_UNIQUE_SAMPLE, HEADER).then((response) => {
+          response.data.risc = response.data.risc == 1;
+          setIdEntity(response.data._id);
+          setObjectSave(response.data);
+          execution = 1;
+        });
+    //   setIdEntity(dados._id);
+    //   objectSave.risc = dados.risc == 1;
+    //   setObjectSave(dados);
+    
+    }
+  }, []);
+
+  const show = () => {
+    console.log(objectSave);
+  };
+
+  const saveObject = () => {
+    let objectToSave = objectSave;
+    objectToSave.id = idEntity;
+    objectToSave.crm = crm;
+    objectSave.risco = objectSave.risco ? 1 : 0;
+
+    console.log(objectSave)
+    axios
+      .post(SAVE_LABELED_SAMPLES, objectToSave, HEADER)
+      .then((response) => {
+        showAlertSuccess(SUCCESS, SUCCESS_MESSAGE);
+      })
+      .catch(function (error) {
+        showAlertError(ERROR, ERROR_MESSAGE);
+      });
+  };
+
+  const handleChange = (e) =>
+    setObjectSave({ ...objectSave, [e.target.name]: e.target.value.toUpperCase() });
+  const handleChangeCheckBox = (e) => {
+    setObjectSave({ ...objectSave, [e.target.name]: e.target.checked });
+  };
 
   return (
     <div className="container">
@@ -172,13 +223,139 @@ export default function DetailsV2() {
           variant="success"
           className="button-success"
           replace
-          //   onClick={saveObject}
+          onClick={saveObject}
         >
           {" "}
-          <CheckIcon />
+          <SaveIcon />
         </Button>{" "}
       </div>
-      <h3> Pessoa - {objectSave.pessoa} </h3>
+      <table className="table table-stripped margin-top-title">
+      <thead>
+              <th scope="col">Pessoa</th>
+              <th scope="col">Idade</th>
+              <th scope="col">Data</th>
+              <th scope="col">Sexo</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> {objectSave.pessoa}</td>
+                    <td>{objectSave.idade}</td>
+                    <td>{objectSave.data}</td>
+                    <td>{objectSave.sexo}</td>
+                </tr>
+            </tbody>
+      </table>
+      <br />
+      <form>
+        <div className="table-details">
+          <table className="table table-stripped">
+            <thead>
+              <th scope="col">Doença</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Relevante?</th>
+              <th scope="col">Observação</th>
+            </thead>
+            <tbody>
+              {objectSave?.features?.map((object) => (
+                <tr>
+                  <td>{object.label.toUpperCase()}</td>
+                  <td>
+                    {" "}
+                    {
+                        typeof object.value === "boolean" ? (
+                            <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id={object.feature}
+                            name={object.feature}
+                            value={object.value}
+                            onChange={handleChangeCheckBox}
+                            defaultValue={object.value}
+                            defaultChecked={object.value}
+                          />
+                        ) : (
+                            <input
+                        type="text"
+                        className="form-control width-input"
+                        id={object.feature}
+                        name={object.feature}
+                        value={object.value}
+                        onChange={handleChange}
+
+                        disabled={true}
+            />
+                        )
+                    }
+                   
+                  </td>
+                  <td>
+                    {" "}
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id={`${object.feature}_eh_relevante`}
+                      name={`${object.feature}_eh_relevante`}
+                      value={object.relevant}
+                      checked={object.relevant}
+                      onChange={handleChangeCheckBox}
+                    />{" "}
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      className="form-control uppercase"
+                      id={object.feature}
+                      name={`${object.feature}_obs`}
+                      value={object.obs}
+                      onChange={handleChange}
+                    />
+                  </td>
+                </tr>
+              ))}
+              
+              {/* <tr>
+                
+                <td>aaa</td>
+                <td>aaa</td>
+                <td>aaa</td>
+                <td>aaa</td>
+                </tr>
+                <tr>
+                <th scope="row">1</th>
+                <td>aaa</td>
+                <td>aaa</td>
+                <td>aaa</td>
+                <td>aaa</td>
+                </tr> */}
+            </tbody>
+          </table>
+        </div>
+        <div className=" row form " style={{ paddingTop: "1.5vh" }}>
+          <div className="col-md-3">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="risco"
+              name="risco"
+              value={objectSave.risco}
+              checked={objectSave.risco == 1}
+              onChange={handleChangeCheckBox}
+            />{" "}
+            &nbsp;
+            <label htmlFor="hepatite">Risco cardiológico</label>
+            <br />
+          </div>
+          <div className="col-md-4">
+            <textarea
+              className="form-control textarea-size uppercase"
+              placeholder="Observações gerais"
+              id="floatingTextarea"
+            ></textarea>
+            &nbsp;
+            <br />
+          </div>
+        </div>
+      </form>
     </div>
   );
 }
