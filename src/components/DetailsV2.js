@@ -5,40 +5,20 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link, useLocation, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckIcon from "@mui/icons-material/Check";
-import { GET_UNIQUE_SAMPLE, SAVE_LABELED_SAMPLES } from "../constants/endpoints";
+import {
+  GET_UNIQUE_SAMPLE,
+  SAVE_LABELED_SAMPLES,
+} from "../constants/endpoints";
 import { HEADER } from "../constants/config";
 import axios from "axios";
-import { ERROR, ERROR_MESSAGE, SUCCESS, SUCCESS_MESSAGE } from "../constants/message";
+import {
+  ERROR,
+  ERROR_MESSAGE,
+  SUCCESS,
+  SUCCESS_MESSAGE,
+} from "../constants/message";
 import { showAlertError, showAlertSuccess } from "../layout/Alert";
-import SaveIcon from '@mui/icons-material/Save';
-
-const dados = {
-  // Dados gerais
-  _id: "2cf63843-f8aa-4209-bfc0-c48f1b2e362e+2024-01-11",
-  risc: 0,
-  data: "2024-01-11",
-  obs_geral: null,
-  pessoa: "2cf63843-f8aa-4209-bfc0-c48f1b2e362e",
-  idade: 20,
-  sexo: "MASCULINO",
-  //Variáveis a serem avaliadas pelo médico
-  features: [
-    {
-      feature: "hepatiteB",
-      label: "Hepatite B",
-      value: false,
-      hepatiteB_eh_relevante: false,
-      hepatiteB_obs: null,
-    },
-    {
-      feature: "tuberculose",
-      label: "Tuberculose",
-      value: true,
-      tuberculose_eh_relevante: false,
-      obs: null,
-    },
-  ],
-};
+import SaveIcon from "@mui/icons-material/Save";
 
 export default function DetailsV2() {
   const { crm } = useParams();
@@ -163,16 +143,12 @@ export default function DetailsV2() {
   const [valor, setValor] = useState("");
   useEffect(() => {
     if (execution === 0) {
-        axios.get(GET_UNIQUE_SAMPLE, HEADER).then((response) => {
-          response.data.risc = response.data.risc == 1;
-          setIdEntity(response.data._id);
-          setObjectSave(response.data);
-          execution = 1;
-        });
-    //   setIdEntity(dados._id);
-    //   objectSave.risc = dados.risc == 1;
-    //   setObjectSave(dados);
-    
+      axios.get(GET_UNIQUE_SAMPLE, HEADER).then((response) => {
+        response.data.risc = response.data.risc == 1;
+        setIdEntity(response.data._id);
+        setObjectSave(response.data);
+        execution = 1;
+      });
     }
   }, []);
 
@@ -186,7 +162,7 @@ export default function DetailsV2() {
     objectToSave.crm = crm;
     objectSave.risco = objectSave.risco ? 1 : 0;
 
-    console.log(objectSave)
+    console.log(objectSave);
     axios
       .post(SAVE_LABELED_SAMPLES, objectToSave, HEADER)
       .then((response) => {
@@ -198,7 +174,10 @@ export default function DetailsV2() {
   };
 
   const handleChange = (e) =>
-    setObjectSave({ ...objectSave, [e.target.name]: e.target.value.toUpperCase() });
+    setObjectSave({
+      ...objectSave,
+      [e.target.name]: e.target.value.toUpperCase(),
+    });
   const handleChangeCheckBox = (e) => {
     setObjectSave({ ...objectSave, [e.target.name]: e.target.checked });
   };
@@ -230,20 +209,20 @@ export default function DetailsV2() {
         </Button>{" "}
       </div>
       <table className="table table-stripped margin-top-title">
-      <thead>
-              <th scope="col">Pessoa</th>
-              <th scope="col">Idade</th>
-              <th scope="col">Data</th>
-              <th scope="col">Sexo</th>
-            </thead>
-            <tbody>
-                <tr>
-                    <td> {objectSave.pessoa}</td>
-                    <td>{objectSave.idade}</td>
-                    <td>{objectSave.data}</td>
-                    <td>{objectSave.sexo}</td>
-                </tr>
-            </tbody>
+        <thead>
+          <th scope="col">Pessoa</th>
+          <th scope="col">Idade</th>
+          <th scope="col">Data</th>
+          <th scope="col">Sexo</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td> {objectSave.pessoa}</td>
+            <td>{objectSave.idade}</td>
+            <td>{objectSave.data}</td>
+            <td>{objectSave.sexo}</td>
+          </tr>
+        </tbody>
       </table>
       <br />
       <form>
@@ -261,32 +240,28 @@ export default function DetailsV2() {
                   <td>{object.label.toUpperCase()}</td>
                   <td>
                     {" "}
-                    {
-                        typeof object.value === "boolean" ? (
-                            <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id={object.feature}
-                            name={object.feature}
-                            value={object.value}
-                            onChange={handleChangeCheckBox}
-                            defaultValue={object.value}
-                            defaultChecked={object.value}
-                          />
-                        ) : (
-                            <input
+                    {typeof object.value === "boolean" ? (
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id={object.feature}
+                        name={object.feature}
+                        value={object.value}
+                        onChange={handleChangeCheckBox}
+                        defaultValue={object.value}
+                        defaultChecked={object.value}
+                      />
+                    ) : (
+                      <input
                         type="text"
                         className="form-control width-input"
                         id={object.feature}
                         name={object.feature}
                         value={object.value}
                         onChange={handleChange}
-
                         disabled={true}
-            />
-                        )
-                    }
-                   
+                      />
+                    )}
                   </td>
                   <td>
                     {" "}
@@ -312,7 +287,7 @@ export default function DetailsV2() {
                   </td>
                 </tr>
               ))}
-              
+
               {/* <tr>
                 
                 <td>aaa</td>

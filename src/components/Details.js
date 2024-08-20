@@ -11,7 +11,12 @@ import {
   SAVE_LABELED_SAMPLES,
 } from "../constants/endpoints";
 import { showAlertError, showAlertSuccess } from "../layout/Alert";
-import { ERROR, ERROR_MESSAGE, SUCCESS, SUCCESS_MESSAGE } from "../constants/message";
+import {
+  ERROR,
+  ERROR_MESSAGE,
+  SUCCESS,
+  SUCCESS_MESSAGE,
+} from "../constants/message";
 
 export default function Details() {
   const { crm } = useParams();
@@ -141,7 +146,6 @@ export default function Details() {
         response.data.risc = response.data.risc == 1;
         setIdEntity(response.data._id);
         setObjectSave(response.data);
-        
       });
 
       execution = 1;
@@ -153,9 +157,7 @@ export default function Details() {
   const handleChangeCheckBox = (e) => {
     setObjectSave({ ...objectSave, [e.target.name]: e.target.checked });
   };
-  // const handleChangeRisc = (e) => {
-  //   setObjectSave({ ...objectSave, [e.target.name]: e.target.checked ? 0 : 1});
-  // };
+
   const saveObject = () => {
     let objectToSave = objectSave;
     objectToSave.id = idEntity;
@@ -172,10 +174,10 @@ export default function Details() {
       });
   };
 
-  const show = ()=> {
+  const show = () => {
     objectSave.risc = objectSave.risc ? 1 : 0;
-    console.log(objectSave)
-  }
+    console.log(objectSave);
+  };
   return (
     <div className="container">
       <div className="back-button">
@@ -206,7 +208,7 @@ export default function Details() {
       <h3> Pessoa - {objectSave.pessoa} </h3>
       <form>
         <div className=" row form " style={{ paddingTop: "1.5vh" }}>
-        <div className="col-md-2 ">
+          <div className="col-md-2 ">
             <label>Risco cardiológico</label>
             <br />
             <input
