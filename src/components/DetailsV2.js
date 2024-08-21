@@ -219,7 +219,7 @@ export default function DetailsV2() {
           <tr>
             <td> {objectSave.pessoa}</td>
             <td>{objectSave.idade}</td>
-            <td>{objectSave.data}</td>
+            <td>{objectSave.data.split("-").reverse().join("/")}</td>
             <td>{objectSave.sexo}</td>
           </tr>
         </tbody>
