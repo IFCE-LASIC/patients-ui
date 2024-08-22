@@ -12,6 +12,7 @@ import { HEADER } from "../constants/config";
 import { GET_ALL } from "../constants/endpoints";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import { Modal } from "react-bootstrap";
 
 const columns = [
   {
@@ -38,10 +39,12 @@ export default function Patients() {
   const { crm } = useParams();
   const [patientsTable, setPatientsTable] = useState([]);
   const [idSelected, setSelectedId] = useState([]);
+  const [showDialog, setShowDialog] = useState(false);
 
   let execution = 0;
   useEffect(() => {
     if (execution === 0) {
+      setShowDialog(localStorage.getItem("saved"))
       loadPatients();
       execution = 1;
     }
@@ -72,6 +75,8 @@ export default function Patients() {
     setSelectedId(ids[0]);
   };
 
+  const handleClose = () => setShowDialog(false);
+
   return (
     <div className="container">
       <div className="back-button">
@@ -84,11 +89,11 @@ export default function Patients() {
           </Link>
         </OverlayTrigger>
       </div>
-      <div className="save-position">
+      <div className="aaa">
         <OverlayTrigger placement="bottom" overlay={getTooltip("Rotular")}>
           <Link to={{ pathname: `/details/v2/${crm}` }}>
             <Button variant="success" className="button-success">
-              <ArticleIcon />
+              <ArticleIcon /> Rotular
             </Button>
           </Link>
         </OverlayTrigger>
@@ -106,6 +111,31 @@ export default function Patients() {
           onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
         />
       </Box>
+
+      <Modal
+       size="md"
+        show={showDialog}
+       onHide={handleClose}
+       backdrop="static"
+       keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Novo cadastro disponível</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Existem cadastros disponíveis. Realize um novo cadastramento.
+        </Modal.Body>
+        <Modal.Footer>
+        <Button
+              variant="success"
+              className="button-success"
+              replace
+              onClick={handleClose}
+            >
+              OK
+            </Button>{" "}
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

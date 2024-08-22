@@ -188,6 +188,7 @@ export default function DetailsV2() {
       .then((response) => {
         showAlertSuccess(SUCCESS, SUCCESS_MESSAGE);
         navigate(`/patients/${crm}`);
+        localStorage.setItem("saved", true);
       })
       .catch(function (error) {
         showAlertError(ERROR, ERROR_MESSAGE);
