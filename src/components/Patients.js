@@ -48,8 +48,8 @@ export default function Patients() {
   }, []);
 
   const getTooltip = (name) => {
-    return <Tooltip id="button-tooltip">{name}</Tooltip>
-  }
+    return <Tooltip id="button-tooltip">{name}</Tooltip>;
+  };
 
   const loadPatients = () => {
     axios.get(`${GET_ALL}?crm=${crm}`, HEADER).then((response) => {
@@ -75,23 +75,17 @@ export default function Patients() {
   return (
     <div className="container">
       <div className="back-button">
-      <OverlayTrigger
-          placement="bottom"
-          overlay={getTooltip('Voltar')}
-        >
-        <Link to="/">
-          <Button variant="success" className="button-success">
-            {" "}
-            <ArrowBackIcon />
-          </Button>{" "}
-        </Link>
+        <OverlayTrigger placement="bottom" overlay={getTooltip("Voltar")}>
+          <Link to="/">
+            <Button variant="success" className="button-success">
+              {" "}
+              <ArrowBackIcon />
+            </Button>{" "}
+          </Link>
         </OverlayTrigger>
       </div>
       <div className="save-position">
-        <OverlayTrigger
-          placement="bottom"
-          overlay={getTooltip('Rotular')}
-        >
+        <OverlayTrigger placement="bottom" overlay={getTooltip("Rotular")}>
           <Link to={{ pathname: `/details/v2/${crm}` }}>
             <Button variant="success" className="button-success">
               <ArticleIcon />
@@ -112,14 +106,6 @@ export default function Patients() {
           onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
         />
       </Box>
-
-      {/* <div className="d-flex justify-content-end mt-5 margin-top-button">
-        <div className="row">
-          <div className="col-md-3 ml-md-auto">
-           
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 }

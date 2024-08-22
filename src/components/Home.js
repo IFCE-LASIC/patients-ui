@@ -14,8 +14,8 @@ export default function Home() {
 
   useEffect(() => {}, []);
   const getTooltip = (name) => {
-    return <Tooltip id="button-tooltip">{name}</Tooltip>
-  }
+    return <Tooltip id="button-tooltip">{name}</Tooltip>;
+  };
   return (
     <div className="container container-box">
       <form>
@@ -33,17 +33,13 @@ export default function Home() {
             onChange={(e) => onInputChange(e)}
           />
         </div>
-        <OverlayTrigger
-          placement="bottom"
-          overlay={getTooltip('Pesquisar')}
-        >
-        <Link to={{ pathname: `/patients/${crm}` }}>
-          
-          <Button type="submit" variant="success" className="button-success">
-            {" "}
-            <SearchIcon />
-          </Button>{" "}
-        </Link>
+        <OverlayTrigger placement="bottom" overlay={getTooltip("Pesquisar")}>
+          <Link to={{ pathname: `/patients/${crm}` }}>
+            <Button type="submit" variant="success" className="button-success">
+              {" "}
+              <SearchIcon />
+            </Button>{" "}
+          </Link>
         </OverlayTrigger>
       </form>
     </div>

@@ -205,7 +205,6 @@ export default function DetailsV2() {
   };
 
   const handleRisc = (e) => {
-    // console.log(e.target.name);
     if(e.target.name === 'risco_sim'){
       objectSave.risco_nao = false
     } else {
@@ -222,18 +221,10 @@ export default function DetailsV2() {
       });
   }
 
-  const afterSave = () => {
-    
-    redirect(`/patients`)
-  //  forceUpdate();
-  //   window.location.reload();
-  
-    // forceUpdate();
-  }
-
   const getTooltip = (name) => {
     return <Tooltip id="button-tooltip">{name}</Tooltip>
   }
+  
   return (
     <div className="container">
       <div className="back-button">
@@ -350,21 +341,6 @@ export default function DetailsV2() {
                   </td>
                 </tr>
               ))}
-
-              {/* <tr>
-                
-                <td>aaa</td>
-                <td>aaa</td>
-                <td>aaa</td>
-                <td>aaa</td>
-                </tr>
-                <tr>
-                <th scope="row">1</th>
-                <td>aaa</td>
-                <td>aaa</td>
-                <td>aaa</td>
-                <td>aaa</td>
-                </tr> */}
             </tbody>
           </table>
         </div>
