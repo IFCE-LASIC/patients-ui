@@ -156,3 +156,7 @@ footer {
   top: 0;
   right: 0;
 }
+
+.form-control.width-input {
+  width: 100%;
+}
