@@ -150,11 +150,9 @@ footer {
 .relevant {
   width: 10%;
 }
-.aaa{
-  /* width: 100px;
-  height: 100px; */
-  position:absolute;
+.position-fill {
+  position: absolute;
   margin-right: 3vh;
-  top:0;
+  top: 0;
   right: 0;
 }

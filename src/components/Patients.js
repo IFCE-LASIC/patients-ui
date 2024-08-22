@@ -89,7 +89,7 @@ export default function Patients() {
           </Link>
         </OverlayTrigger>
       </div>
-      <div className="aaa">
+      <div className="position-fill">
         <OverlayTrigger placement="bottom" overlay={getTooltip("Rotular")}>
           <Link to={{ pathname: `/details/v2/${crm}` }}>
             <Button variant="success" className="button-success">
