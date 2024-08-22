@@ -3,6 +3,7 @@ import "../App.css";
 import Button from "react-bootstrap/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function Home() {
   const [crm, setCrm] = useState("");
@@ -12,7 +13,9 @@ export default function Home() {
   };
 
   useEffect(() => {}, []);
-
+  const getTooltip = (name) => {
+    return <Tooltip id="button-tooltip">{name}</Tooltip>
+  }
   return (
     <div className="container container-box">
       <form>
@@ -30,12 +33,18 @@ export default function Home() {
             onChange={(e) => onInputChange(e)}
           />
         </div>
+        <OverlayTrigger
+          placement="bottom"
+          overlay={getTooltip('Pesquisar')}
+        >
         <Link to={{ pathname: `/patients/${crm}` }}>
+          
           <Button type="submit" variant="success" className="button-success">
             {" "}
             <SearchIcon />
           </Button>{" "}
         </Link>
+        </OverlayTrigger>
       </form>
     </div>
   );

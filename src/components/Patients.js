@@ -10,11 +10,13 @@ import Patient from "../models/Patient";
 import ArticleIcon from "@mui/icons-material/Article";
 import { HEADER } from "../constants/config";
 import { GET_ALL } from "../constants/endpoints";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 const columns = [
   {
     field: "id",
-    headerName: "#",
+    headerName: "Paciente",
     width: 500,
     editable: false,
   },
@@ -45,6 +47,10 @@ export default function Patients() {
     }
   }, []);
 
+  const getTooltip = (name) => {
+    return <Tooltip id="button-tooltip">{name}</Tooltip>
+  }
+
   const loadPatients = () => {
     axios.get(`${GET_ALL}?crm=${crm}`, HEADER).then((response) => {
       let patients = response.data;
@@ -69,12 +75,29 @@ export default function Patients() {
   return (
     <div className="container">
       <div className="back-button">
+      <OverlayTrigger
+          placement="bottom"
+          overlay={getTooltip('Voltar')}
+        >
         <Link to="/">
           <Button variant="success" className="button-success">
             {" "}
             <ArrowBackIcon />
           </Button>{" "}
         </Link>
+        </OverlayTrigger>
+      </div>
+      <div className="save-position">
+        <OverlayTrigger
+          placement="bottom"
+          overlay={getTooltip('Rotular')}
+        >
+          <Link to={{ pathname: `/details/v2/${crm}` }}>
+            <Button variant="success" className="button-success">
+              <ArticleIcon />
+            </Button>
+          </Link>
+        </OverlayTrigger>
       </div>
 
       <Box sx={{ height: 550, width: "100%" }} className="margin-box">
@@ -90,17 +113,13 @@ export default function Patients() {
         />
       </Box>
 
-      <div className="d-flex justify-content-end mt-5">
-        <div className="row ">
+      {/* <div className="d-flex justify-content-end mt-5 margin-top-button">
+        <div className="row">
           <div className="col-md-3 ml-md-auto">
-            <Link to={{ pathname: `/details/v2/${crm}` }}>
-              <Button variant="success" className="button-success">
-                <ArticleIcon />
-              </Button>
-            </Link>
+           
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

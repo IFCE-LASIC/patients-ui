@@ -85,22 +85,22 @@ footer {
   /* background: #fff; */
 }
 
-.button-success{
+.button-success {
   margin-top: 1vh;
 }
 
 .crm {
   font-size: 30px;
-  font-weight:bolder;
+  font-weight: bolder;
 }
 
-.back-button{
+.back-button {
   position: relative;
   width: 100px;
   height: 100px;
 }
 
-.margin-box{
+.margin-box {
   margin-top: 1vh;
 }
 
@@ -117,16 +117,15 @@ footer {
 }
 
 .table-details {
-  
-  overflow:auto;
-  height:50vh;
+  overflow: auto;
+  height: 50vh;
 }
 
 .textarea-size {
   height: 10vh;
 }
 
-.margin-top-title{
+.margin-top-title {
   margin-top: -20px;
 }
 
@@ -135,5 +134,19 @@ footer {
 }
 
 .width-input {
-width: 10vh;
+  width: 10vh;
+}
+
+.checkbox-border {
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.valor {
+  width: 35%;
+}
+
+.relevant {
+  width: 10%;
 }
