@@ -160,3 +160,7 @@ footer {
 .form-control.width-input {
   width: 100%;
 }
+
+.margin-button-save {
+  margin-left: -2vh;
+}
