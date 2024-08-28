@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import "../App.css";
 import Button from "react-bootstrap/Button";
 import SearchIcon from "@mui/icons-material/Search";
-import { Link, redirect, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  redirect,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckIcon from "@mui/icons-material/Check";
 import {
@@ -137,7 +143,7 @@ const defaultObject = {
   historico_familiar_de_outras_doencas_obs: "",
   historico_familiar_de_outras_doencas_eh_relevante: "",
   quais_valor_obtido_em_exame_sao_relevantes: "",
-}
+};
 export default function DetailsV2() {
   const { crm } = useParams();
   const location = useLocation();
@@ -146,16 +152,16 @@ export default function DetailsV2() {
   const [showDialogEmptyFields, setShowDialogEmptyFields] = useState(false);
   const [checked, setChecked] = useState(false);
   const [objectSave, setObjectSave] = useState(defaultObject);
-  const [refresh, setRefresh] = React.useState(0)
+  const [refresh, setRefresh] = React.useState(0);
   const navigate = useNavigate();
 
   let execution = 0;
   const [valor, setValor] = useState("");
   useEffect(() => {
-    console.log(execution)
+    console.log(execution);
     if (execution === 0) {
-     getSample();
-     execution = 1;
+      getSample();
+      execution = 1;
     }
   }, []);
 
@@ -168,21 +174,21 @@ export default function DetailsV2() {
   const handleCloseEmptyFields = () => setShowDialogEmptyFields(false);
 
   const validateFields = () => {
-    if(objectSave.risco_sim || objectSave.risco_nao){
+    if (objectSave.risco_sim || objectSave.risco_nao) {
       setShowDialog(true);
     } else {
       setShowDialogEmptyFields(true);
     }
   };
-  
+
   const saveObject = () => {
     let objectToSave = objectSave;
     objectToSave.id = idEntity;
     objectToSave.crm = crm;
     objectSave.risco = objectSave.risco_sim ? 1 : 0;
-    handleClose()
+    handleClose();
     console.log(objectSave);
-    
+
     axios
       .post(SAVE_LABELED_SAMPLES, objectToSave, HEADER)
       .then((response) => {
@@ -193,8 +199,7 @@ export default function DetailsV2() {
       .catch(function (error) {
         showAlertError(ERROR, ERROR_MESSAGE);
       });
-  }
-
+  };
 
   const handleChange = (e) =>
     setObjectSave({
@@ -206,33 +211,30 @@ export default function DetailsV2() {
   };
 
   const handleRisc = (e) => {
-    if(e.target.name === 'risco_sim'){
-      objectSave.risco_nao = false
+    if (e.target.name === "risco_sim") {
+      objectSave.risco_nao = false;
     } else {
       objectSave.risco_sim = false;
     }
     handleChangeCheckBox(e);
-  }
+  };
 
   const getSample = () => {
-      axios.get(GET_UNIQUE_SAMPLE, HEADER).then((response) => {
-        response.data.risc = response.data.risc == 1;
-        setIdEntity(response.data._id);
-        setObjectSave(response.data);
-      });
-  }
+    axios.get(GET_UNIQUE_SAMPLE, HEADER).then((response) => {
+      response.data.risc = response.data.risc == 1;
+      setIdEntity(response.data._id);
+      setObjectSave(response.data);
+    });
+  };
 
   const getTooltip = (name) => {
-    return <Tooltip id="button-tooltip">{name}</Tooltip>
-  }
-  
+    return <Tooltip id="button-tooltip">{name}</Tooltip>;
+  };
+
   return (
     <div className="container">
       <div className="back-button">
-        <OverlayTrigger
-          placement="bottom"
-          overlay={getTooltip('Voltar')}
-        >
+        <OverlayTrigger placement="bottom" overlay={getTooltip("Voltar")}>
           <Link to={{ pathname: `/patients/${crm}` }}>
             <Button
               variant="success"
@@ -246,22 +248,7 @@ export default function DetailsV2() {
           </Link>
         </OverlayTrigger>
       </div>
-      <div className="save-position">
-        <OverlayTrigger
-          placement="bottom"
-          overlay={getTooltip('Salvar')}
-        >
-          <Button
-            variant="success"
-            className="button-success"
-            replace
-            onClick={(validateFields)}
-          >
-            {" "}
-            <SaveIcon />
-          </Button>
-        </OverlayTrigger>
-      </div>
+
       <table className="table table-stripped margin-top-title">
         <thead>
           <th scope="col">Pessoa</th>
@@ -284,8 +271,12 @@ export default function DetailsV2() {
           <table className="table table-stripped">
             <thead>
               <th scope="col">Atributo</th>
-              <th scope="col" className="valor">Valor</th>
-              <th scope="col" className="relevante">Relevante?</th>
+              <th scope="col" className="valor">
+                Valor
+              </th>
+              <th scope="col" className="relevante">
+                Relevante?
+              </th>
               <th scope="col">Observação</th>
             </thead>
             <tbody>
@@ -295,17 +286,11 @@ export default function DetailsV2() {
                   <td>
                     {" "}
                     {typeof object.value === "boolean" ? (
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id={object.feature}
-                        name={object.feature}
-                        value={object.value}
-                        onChange={handleChangeCheckBox}
-                        defaultValue={object.value}
-                        defaultChecked={object.value}
-                        disabled={true}
-                      />
+                      object.value ? (
+                        "SIM"
+                      ) : (
+                        "NÃO"
+                      )
                     ) : (
                       <input
                         type="text"
@@ -357,10 +342,9 @@ export default function DetailsV2() {
               value={objectSave.risco_sim}
               onChange={handleRisc}
               checked={objectSave.risco_sim}
-            /> &nbsp; SIM
-            &nbsp;
-            &nbsp;
-             <input
+            />{" "}
+            &nbsp; SIM &nbsp; &nbsp;
+            <input
               className="form-check-input checkbox-border"
               type="checkbox"
               id="risco_nao"
@@ -368,7 +352,8 @@ export default function DetailsV2() {
               value={objectSave.risco_nao}
               checked={objectSave.risco_nao}
               onChange={handleRisc}
-            /> &nbsp; NÃO
+            />{" "}
+            &nbsp; NÃO
           </div>
           <div className="col-md-4">
             <textarea
@@ -379,45 +364,58 @@ export default function DetailsV2() {
               value={objectSave.obs_geral}
               onChange={handleChange}
             ></textarea>
-            &nbsp;
             <br />
+          </div>
+          <div className="col-md-1 margin-button-save">
+            <OverlayTrigger placement="bottom" overlay={getTooltip("Salvar")}>
+              <Button
+                variant="success"
+                className="button-success"
+                replace
+                onClick={validateFields}
+              >
+                {" "}
+                <SaveIcon />
+              </Button>
+            </OverlayTrigger>
           </div>
         </div>
       </form>
       <Modal
-       size="sm"
-       show={showDialog}
-       onHide={handleClose}
-       backdrop="static"
-       keyboard={false}
+        size="sm"
+        show={showDialog}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
       >
         <Modal.Header closeButton>
           <Modal.Title>Confirmação</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Você selecionou a opção { objectSave.risco_sim ? '"SIM"' : '"NÃO"'} para risco cardiológico. Deseja confirmar?
+          Você selecionou a opção {objectSave.risco_sim ? '"SIM"' : '"NÃO"'}{" "}
+          para risco cardiológico. Deseja confirmar?
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="danger" onClick={handleClose}>
-              Cancelar
-            </Button>
-        <Button
-              variant="success"
-              className="button-success"
-              replace
-              onClick={saveObject}
-            >
-              Confirmar
-            </Button>{" "}
+          <Button variant="danger" onClick={handleClose}>
+            Cancelar
+          </Button>
+          <Button
+            variant="success"
+            className="button-success"
+            replace
+            onClick={saveObject}
+          >
+            Confirmar
+          </Button>{" "}
         </Modal.Footer>
       </Modal>
 
       <Modal
-       size="md"
+        size="md"
         show={showDialogEmptyFields}
-       onHide={handleCloseEmptyFields}
-       backdrop="static"
-       keyboard={false}
+        onHide={handleCloseEmptyFields}
+        backdrop="static"
+        keyboard={false}
       >
         <Modal.Header closeButton>
           <Modal.Title>Validação - Risco cardiológico</Modal.Title>
@@ -426,14 +424,14 @@ export default function DetailsV2() {
           Por favor, rotular o risco cardiológico em "SIM" ou "NÃO".
         </Modal.Body>
         <Modal.Footer>
-        <Button
-              variant="success"
-              className="button-success"
-              replace
-              onClick={handleCloseEmptyFields}
-            >
-              OK
-            </Button>{" "}
+          <Button
+            variant="success"
+            className="button-success"
+            replace
+            onClick={handleCloseEmptyFields}
+          >
+            OK
+          </Button>{" "}
         </Modal.Footer>
       </Modal>
     </div>

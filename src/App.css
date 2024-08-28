@@ -156,3 +156,16 @@ footer {
   top: 0;
   right: 0;
 }
+
+.form-control.width-input {
+  width: 100%;
+}
+
+.margin-button-save {
+  margin-left: -2vh;
+}
+
+.spinner-size {
+  height: 10vh !important;
+  width: 10vh !important;
+}

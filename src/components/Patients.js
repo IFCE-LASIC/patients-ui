@@ -40,11 +40,12 @@ export default function Patients() {
   const [patientsTable, setPatientsTable] = useState([]);
   const [idSelected, setSelectedId] = useState([]);
   const [showDialog, setShowDialog] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   let execution = 0;
   useEffect(() => {
     if (execution === 0) {
-      setShowDialog(localStorage.getItem("saved"))
+      setShowDialog(localStorage.getItem("saved"));
       loadPatients();
       execution = 1;
     }
@@ -66,7 +67,7 @@ export default function Patients() {
         object.status_crm = patients.status_crm[i];
         objects.push(object);
       }
-
+      setIsLoading(false);
       setPatientsTable(objects);
     });
   };
@@ -90,34 +91,46 @@ export default function Patients() {
         </OverlayTrigger>
       </div>
       <div className="position-fill">
-        <OverlayTrigger placement="bottom" overlay={getTooltip("Rotular")}>
-          <Link to={{ pathname: `/details/v2/${crm}` }}>
-            <Button variant="success" className="button-success">
-              <ArticleIcon /> Rotular
-            </Button>
-          </Link>
-        </OverlayTrigger>
+        {!isLoading && (
+          <OverlayTrigger placement="bottom" overlay={getTooltip("Rotular")}>
+            <Link to={{ pathname: `/details/v2/${crm}` }}>
+              <Button
+                disabled={isLoading}
+                variant="success"
+                className="button-success"
+              >
+                <ArticleIcon /> Rotular
+              </Button>
+            </Link>
+          </OverlayTrigger>
+        )}
       </div>
 
-      <Box sx={{ height: 550, width: "100%" }} className="margin-box">
-        <h3>Pacientes (CRM - {crm})</h3>
-        <DataGrid
-          rows={patientsTable}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10]}
-          checkboxSelection={false}
-          experimentalFeatures={{ newEditingApi: true }}
-          onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
-        />
-      </Box>
+      {isLoading ? (
+        <div class="spinner-border text-success spinner-size" role="status">
+          <span class="sr-only"></span>
+        </div>
+      ) : (
+        <Box sx={{ height: 550, width: "100%" }} className="margin-box">
+          <h3>Pacientes (CRM - {crm})</h3>
+          <DataGrid
+            rows={patientsTable}
+            columns={columns}
+            pageSize={100}
+            rowsPerPageOptions={[10]}
+            checkboxSelection={false}
+            experimentalFeatures={{ newEditingApi: true }}
+            onSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
+          />
+        </Box>
+      )}
 
       <Modal
-       size="md"
+        size="md"
         show={showDialog}
-       onHide={handleClose}
-       backdrop="static"
-       keyboard={false}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
       >
         <Modal.Header closeButton>
           <Modal.Title>Novo cadastro disponível</Modal.Title>
@@ -126,14 +139,14 @@ export default function Patients() {
           Existem cadastros disponíveis. Realize um novo cadastramento.
         </Modal.Body>
         <Modal.Footer>
-        <Button
-              variant="success"
-              className="button-success"
-              replace
-              onClick={handleClose}
-            >
-              OK
-            </Button>{" "}
+          <Button
+            variant="success"
+            className="button-success"
+            replace
+            onClick={handleClose}
+          >
+            OK
+          </Button>{" "}
         </Modal.Footer>
       </Modal>
     </div>
