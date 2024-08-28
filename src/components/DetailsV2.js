@@ -25,7 +25,13 @@ import {
 } from "../constants/message";
 import { showAlertError, showAlertSuccess } from "../layout/Alert";
 import SaveIcon from "@mui/icons-material/Save";
-import { Modal, ModalBody, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  Form,
+  Modal,
+  ModalBody,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 
 const defaultObject = {
   id: "",
@@ -143,6 +149,7 @@ const defaultObject = {
   historico_familiar_de_outras_doencas_obs: "",
   historico_familiar_de_outras_doencas_eh_relevante: "",
   quais_valor_obtido_em_exame_sao_relevantes: "",
+  grau_certeza: null,
 };
 export default function DetailsV2() {
   const { crm } = useParams();
@@ -153,12 +160,12 @@ export default function DetailsV2() {
   const [checked, setChecked] = useState(false);
   const [objectSave, setObjectSave] = useState(defaultObject);
   const [refresh, setRefresh] = React.useState(0);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   let execution = 0;
   const [valor, setValor] = useState("");
   useEffect(() => {
-    console.log(execution);
     if (execution === 0) {
       getSample();
       execution = 1;
@@ -174,20 +181,37 @@ export default function DetailsV2() {
   const handleCloseEmptyFields = () => setShowDialogEmptyFields(false);
 
   const validateFields = () => {
-    if (objectSave.risco_sim || objectSave.risco_nao) {
+    if (
+      (objectSave.risco_sim || objectSave.risco_nao) &&
+      !!objectSave.grau_certeza
+    ) {
       setShowDialog(true);
     } else {
+      mountMessageErro();
       setShowDialogEmptyFields(true);
     }
   };
 
+  const mountMessageErro = () => {
+    let messageBuild = "Por favor, ";
+    if (!(objectSave.risco_sim || objectSave.risco_nao)) {
+      messageBuild += 'rotular o risco cardiológico em "SIM" ou "NÃO".';
+
+      if (!objectSave.grau_certeza) {
+        messageBuild += " Insira o grau de certeza.";
+      }
+    } else if (!objectSave.grau_certeza) {
+      messageBuild += "insira o grau de certeza.";
+    }
+
+    setMessage(messageBuild);
+  };
   const saveObject = () => {
     let objectToSave = objectSave;
     objectToSave.id = idEntity;
     objectToSave.crm = crm;
     objectSave.risco = objectSave.risco_sim ? 1 : 0;
     handleClose();
-    console.log(objectSave);
 
     axios
       .post(SAVE_LABELED_SAMPLES, objectToSave, HEADER)
@@ -205,6 +229,12 @@ export default function DetailsV2() {
     setObjectSave({
       ...objectSave,
       [e.target.name]: e.target.value.toUpperCase(),
+    });
+
+  const handleChangeNumber = (e) =>
+    setObjectSave({
+      ...objectSave,
+      [e.target.name]: Number(e.target.value),
     });
   const handleChangeCheckBox = (e) => {
     setObjectSave({ ...objectSave, [e.target.name]: e.target.checked });
@@ -330,6 +360,7 @@ export default function DetailsV2() {
             </tbody>
           </table>
         </div>
+        <br />
         <div className=" row form " style={{ paddingTop: "1.5vh" }}>
           <div className="col-md-3">
             <label htmlFor="hepatite">Risco cardiológico?</label>
@@ -354,6 +385,15 @@ export default function DetailsV2() {
               onChange={handleRisc}
             />{" "}
             &nbsp; NÃO
+          </div>
+          <div className="col-md-2">
+            Grau de certeza:
+            <Form.Select name="grau_certeza" onChange={handleChangeNumber}>
+              <option></option>
+              <option value={1}>BAIXO</option>
+              <option value={2}>MÉDIO</option>
+              <option value={3}>ALTO</option>
+            </Form.Select>
           </div>
           <div className="col-md-4">
             <textarea
@@ -418,11 +458,9 @@ export default function DetailsV2() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Validação - Risco cardiológico</Modal.Title>
+          <Modal.Title>Validação</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          Por favor, rotular o risco cardiológico em "SIM" ou "NÃO".
-        </Modal.Body>
+        <Modal.Body>{message}</Modal.Body>
         <Modal.Footer>
           <Button
             variant="success"
