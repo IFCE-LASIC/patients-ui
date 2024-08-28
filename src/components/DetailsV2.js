@@ -248,19 +248,7 @@ export default function DetailsV2() {
           </Link>
         </OverlayTrigger>
       </div>
-      <div className="save-position">
-        <OverlayTrigger placement="bottom" overlay={getTooltip("Salvar")}>
-          <Button
-            variant="success"
-            className="button-success"
-            replace
-            onClick={validateFields}
-          >
-            {" "}
-            <SaveIcon />
-          </Button>
-        </OverlayTrigger>
-      </div>
+
       <table className="table table-stripped margin-top-title">
         <thead>
           <th scope="col">Pessoa</th>

@@ -164,3 +164,8 @@ footer {
 .margin-button-save {
   margin-left: -2vh;
 }
+
+.spinner-size {
+  height: 10vh !important;
+  width: 10vh !important;
+}
