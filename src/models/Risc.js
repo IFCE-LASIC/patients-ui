@@ -111,6 +111,6 @@ export default class Risc {
   historico_familiar_de_outras_doencas;
   historico_familiar_de_outras_doencas_obs;
   historico_familiar_de_outras_doencas_eh_relevante;
-
+  grau_certeza;
   constructor() {}
 }
