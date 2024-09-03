@@ -215,7 +215,11 @@ export default function DetailsV2() {
     handleClose();
 
     axios
-      .post(SAVE_LABELED_SAMPLES, objectToSave, mountHeader(localStorage.getItem("hash")))
+      .post(
+        SAVE_LABELED_SAMPLES,
+        objectToSave,
+        mountHeader(localStorage.getItem("hash"))
+      )
       .then((response) => {
         showAlertSuccess(SUCCESS, SUCCESS_MESSAGE);
         navigate(`/patients/${crm}`);
@@ -251,16 +255,19 @@ export default function DetailsV2() {
   };
 
   const getSample = () => {
-    axios.get(GET_UNIQUE_SAMPLE, mountHeader(localStorage.getItem("hash"))).then((response) => {
-      response.data.risc = response.data.risc == 1;
-      setIdEntity(response.data._id);
-      setObjectSave(response.data);
-    }).catch(error => {
-      if(error.response.status === 401 || error.response.status === 403){
+    axios
+      .get(GET_UNIQUE_SAMPLE, mountHeader(localStorage.getItem("hash")))
+      .then((response) => {
+        response.data.risc = response.data.risc == 1;
+        setIdEntity(response.data._id);
+        setObjectSave(response.data);
+      })
+      .catch((error) => {
+        if (error.response.status === 401 || error.response.status === 403) {
           setShowDialogHash(true);
           localStorage.removeItem("hash");
-      }
-    });;
+        }
+      });
   };
 
   const getTooltip = (name) => {
@@ -491,18 +498,12 @@ export default function DetailsV2() {
         <Modal.Header>
           <Modal.Title>Hash inválido</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          Por favor, insira um novo hash válido.
-        </Modal.Body>
+        <Modal.Body>Por favor, insira um novo hash válido.</Modal.Body>
         <Modal.Footer>
-        <Link to="/">
-          <Button
-            variant="success"
-            className="button-success"
-            replace
-          >
-            OK
-          </Button>
+          <Link to="/">
+            <Button variant="success" className="button-success" replace>
+              OK
+            </Button>
           </Link>
         </Modal.Footer>
       </Modal>
