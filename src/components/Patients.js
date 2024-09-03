@@ -8,7 +8,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import Patient from "../models/Patient";
 import ArticleIcon from "@mui/icons-material/Article";
-import { HEADER } from "../constants/config";
+import { mountHeader } from "../constants/config";
 import { GET_ALL } from "../constants/endpoints";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
@@ -40,6 +40,7 @@ export default function Patients() {
   const [patientsTable, setPatientsTable] = useState([]);
   const [idSelected, setSelectedId] = useState([]);
   const [showDialog, setShowDialog] = useState(false);
+  const [showDialogHash, setShowDialogHash] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   let execution = 0;
@@ -56,20 +57,28 @@ export default function Patients() {
   };
 
   const loadPatients = () => {
-    axios.get(`${GET_ALL}?crm=${crm}`, HEADER).then((response) => {
-      let patients = response.data;
-      let objects = [];
+    axios
+      .get(`${GET_ALL}?crm=${crm}`, mountHeader(localStorage.getItem("hash")))
+      .then((response) => {
+        let patients = response.data;
+        let objects = [];
 
-      for (let i = 0; i < patients.id.length; i++) {
-        let object = new Patient();
-        object.id = patients.id[i];
-        object.qtd_rotulacao = patients.qtd_rotulacao[i];
-        object.status_crm = patients.status_crm[i];
-        objects.push(object);
-      }
-      setIsLoading(false);
-      setPatientsTable(objects);
-    });
+        for (let i = 0; i < patients.id.length; i++) {
+          let object = new Patient();
+          object.id = patients.id[i];
+          object.qtd_rotulacao = patients.qtd_rotulacao[i];
+          object.status_crm = patients.status_crm[i];
+          objects.push(object);
+        }
+        setIsLoading(false);
+        setPatientsTable(objects);
+      })
+      .catch((error) => {
+        if (error.response.status === 401 || error.response.status === 403) {
+          setShowDialogHash(true);
+          localStorage.removeItem("hash");
+        }
+      });
   };
 
   const onRowsSelectionHandler = (ids) => {
@@ -77,6 +86,8 @@ export default function Patients() {
   };
 
   const handleClose = () => setShowDialog(false);
+
+  const handleCloseHash = () => setShowDialogHash(false);
 
   return (
     <div className="container">
@@ -147,6 +158,26 @@ export default function Patients() {
           >
             OK
           </Button>{" "}
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        size="md"
+        show={showDialogHash}
+        onHide={handleCloseHash}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header>
+          <Modal.Title>Hash inválido</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Por favor, insira um novo hash válido.</Modal.Body>
+        <Modal.Footer>
+          <Link to="/">
+            <Button variant="success" className="button-success" replace>
+              OK
+            </Button>
+          </Link>
         </Modal.Footer>
       </Modal>
     </div>

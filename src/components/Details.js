@@ -5,7 +5,6 @@ import { Button } from "react-bootstrap";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import CheckIcon from "@mui/icons-material/Check";
-import { HEADER } from "../constants/config";
 import {
   GET_UNIQUE_SAMPLE,
   SAVE_LABELED_SAMPLES,
@@ -17,6 +16,7 @@ import {
   SUCCESS,
   SUCCESS_MESSAGE,
 } from "../constants/message";
+import { mountHeader } from "../constants/config";
 
 export default function Details() {
   const { crm } = useParams();
@@ -142,7 +142,7 @@ export default function Details() {
 
   useEffect(() => {
     if (execution === 0) {
-      axios.get(GET_UNIQUE_SAMPLE, HEADER).then((response) => {
+      axios.get(GET_UNIQUE_SAMPLE, mountHeader(localStorage.getItem("hash"))).then((response) => {
         response.data.risc = response.data.risc == 1;
         setIdEntity(response.data._id);
         setObjectSave(response.data);
@@ -165,7 +165,7 @@ export default function Details() {
     objectSave.risc = objectSave.risc ? 1 : 0;
 
     axios
-      .post(SAVE_LABELED_SAMPLES, objectToSave, HEADER)
+      .post(SAVE_LABELED_SAMPLES, objectToSave, mountHeader(localStorage.getItem("hash")))
       .then((response) => {
         showAlertSuccess(SUCCESS, SUCCESS_MESSAGE);
       })
