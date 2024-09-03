@@ -15,7 +15,6 @@ import {
   GET_UNIQUE_SAMPLE,
   SAVE_LABELED_SAMPLES,
 } from "../constants/endpoints";
-import { HEADER } from "../constants/config";
 import axios from "axios";
 import {
   ERROR,
@@ -32,6 +31,7 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
+import { mountHeader } from "../constants/config";
 
 const defaultObject = {
   id: "",
@@ -160,6 +160,7 @@ export default function DetailsV2() {
   const [checked, setChecked] = useState(false);
   const [objectSave, setObjectSave] = useState(defaultObject);
   const [refresh, setRefresh] = React.useState(0);
+  const [showDialogHash, setShowDialogHash] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
@@ -214,7 +215,7 @@ export default function DetailsV2() {
     handleClose();
 
     axios
-      .post(SAVE_LABELED_SAMPLES, objectToSave, HEADER)
+      .post(SAVE_LABELED_SAMPLES, objectToSave, mountHeader(localStorage.getItem("hash")))
       .then((response) => {
         showAlertSuccess(SUCCESS, SUCCESS_MESSAGE);
         navigate(`/patients/${crm}`);
@@ -250,16 +251,23 @@ export default function DetailsV2() {
   };
 
   const getSample = () => {
-    axios.get(GET_UNIQUE_SAMPLE, HEADER).then((response) => {
+    axios.get(GET_UNIQUE_SAMPLE, mountHeader(localStorage.getItem("hash"))).then((response) => {
       response.data.risc = response.data.risc == 1;
       setIdEntity(response.data._id);
       setObjectSave(response.data);
-    });
+    }).catch(error => {
+      if(error.response.status === 401 || error.response.status === 403){
+          setShowDialogHash(true);
+          localStorage.removeItem("hash");
+      }
+    });;
   };
 
   const getTooltip = (name) => {
     return <Tooltip id="button-tooltip">{name}</Tooltip>;
   };
+
+  const handleCloseHash = () => setShowDialogHash(false);
 
   return (
     <div className="container">
@@ -470,6 +478,32 @@ export default function DetailsV2() {
           >
             OK
           </Button>{" "}
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        size="md"
+        show={showDialogHash}
+        onHide={handleCloseHash}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header>
+          <Modal.Title>Hash inválido</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Por favor, insira um novo hash válido.
+        </Modal.Body>
+        <Modal.Footer>
+        <Link to="/">
+          <Button
+            variant="success"
+            className="button-success"
+            replace
+          >
+            OK
+          </Button>
+          </Link>
         </Modal.Footer>
       </Modal>
     </div>
