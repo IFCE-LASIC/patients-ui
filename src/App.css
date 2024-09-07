@@ -170,4 +170,8 @@ footer {
   width: 10vh !important;
 }
 
-.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
+.t-header {
+  position: sticky;
+  top: 0px;
+  background: white;
+}

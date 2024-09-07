@@ -199,7 +199,7 @@ export default function Details() {
       <form>
         <div className="table-details">
           <table className="table table-stripped">
-            <thead>
+            <thead className="t-header">
               <th scope="col">Atributo</th>
               <th scope="col" className="valor">
                 Valor
