@@ -112,5 +112,11 @@ export default class Risc {
   historico_familiar_de_outras_doencas_obs;
   historico_familiar_de_outras_doencas_eh_relevante;
   grau_certeza;
+  IMC_eh_relevante;
+  PRESSAO_ARTERIAL_eh_relevante;
+  PRESSAO_ARTERIAL_PAD_eh_relevante;
+  PRESSAO_ARTERIAL_PAS_eh_relevante;
+  utiliza_medicacao_com_frequencia_eh_relevante;
+  
   constructor() {}
 }

@@ -169,3 +169,5 @@ footer {
   height: 10vh !important;
   width: 10vh !important;
 }
+
+.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
