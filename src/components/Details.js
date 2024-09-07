@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 import Button from "react-bootstrap/Button";
-import SearchIcon from "@mui/icons-material/Search";
-import {
-  Link,
-  redirect,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import CheckIcon from "@mui/icons-material/Check";
 import {
   GET_UNIQUE_SAMPLE,
   SAVE_LABELED_SAMPLES,
@@ -24,13 +16,7 @@ import {
 } from "../constants/message";
 import { showAlertError, showAlertSuccess } from "../layout/Alert";
 import SaveIcon from "@mui/icons-material/Save";
-import {
-  Form,
-  Modal,
-  ModalBody,
-  OverlayTrigger,
-  Tooltip,
-} from "react-bootstrap";
+import { Form, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { mountHeader } from "../constants/config";
 import { defaultObject } from "../constants/defaultObjects";
 
@@ -43,9 +29,10 @@ export default function Details() {
   const [objectSave, setObjectSave] = useState(defaultObject);
   const [showDialogHash, setShowDialogHash] = useState(false);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   let execution = 0;
-  const [valor, setValor] = useState("");
+
   useEffect(() => {
     if (execution === 0) {
       getSample();
@@ -92,24 +79,22 @@ export default function Details() {
     objectToSave.id = idEntity;
     objectToSave.crm = crm;
     objectSave.risco = objectSave.risco_sim ? 1 : 0;
+    handleClose();
 
-    console.log(objectSave);
-    // handleClose();
-
-    // axios
-    //   .post(
-    //     SAVE_LABELED_SAMPLES,
-    //     objectToSave,
-    //     mountHeader(localStorage.getItem("hash"))
-    //   )
-    //   .then((response) => {
-    //     showAlertSuccess(SUCCESS, SUCCESS_MESSAGE);
-    //     navigate(`/patients/${crm}`);
-    //     localStorage.setItem("saved", true);
-    //   })
-    //   .catch(function (error) {
-    //     showAlertError(ERROR, ERROR_MESSAGE);
-    //   });
+    axios
+      .post(
+        SAVE_LABELED_SAMPLES,
+        objectToSave,
+        mountHeader(localStorage.getItem("hash"))
+      )
+      .then((response) => {
+        showAlertSuccess(SUCCESS, SUCCESS_MESSAGE);
+        navigate(`/patients/${crm}`);
+        localStorage.setItem("saved", true);
+      })
+      .catch(function (error) {
+        showAlertError(ERROR, ERROR_MESSAGE);
+      });
   };
 
   const handleChange = (e) =>
@@ -144,8 +129,6 @@ export default function Details() {
       .then((response) => {
         response.data.risc = response.data.risc == 1;
         setIdEntity(response.data._id);
-
-        console.log(response.data);
         setObjectSave(response.data);
       })
       .catch((error) => {

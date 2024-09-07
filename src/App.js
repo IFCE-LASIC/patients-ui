@@ -1,10 +1,10 @@
-import './App.css';
-import React  from 'react';
-import Home from './components/Home';
+import "./App.css";
+import React from "react";
+import Home from "./components/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Patients from './components/Patients';
-import Details from './components/Details';
+import Patients from "./components/Patients";
+import Details from "./components/Details";
 
 function App() {
   return (
